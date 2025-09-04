@@ -1,0 +1,39 @@
+.party-list-container {
+  padding: 16px;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.search-box {
+  margin-right: 16px;
+  width: 250px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.desktop-view {
+  display: block;
+  margin-top: 16px;
+}
+
+.mobile-view {
+  display: none;
+  margin-top: 16px;
+}
+
+.party-card {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+  .mobile-view {
+    display: block;
+  }
+}

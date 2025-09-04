@@ -1,0 +1,116 @@
+<mat-card>
+  <mat-card-title>
+    {{ mode === 'new' ? 'Add Party' : mode === 'edit' ? 'Edit Party' : 'View Party' }}
+  </mat-card-title>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+ 
+    <div class="form-grid">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="company_name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Mobile No</mat-label>
+        <input matInput formControlName="mobile_no" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>GSTIN</mat-label>
+        <input matInput formControlName="gstin" placeholder="e.g. 22AAAAA0000A1Z5" />
+      </mat-form-field>
+    </div>
+
+    <h3 class="section-title">Addresses</h3>
+    <div formArrayName="address">
+      <div *ngFor="let addr of addressArray.controls; let i = index" [formGroupName]="i" class="form-grid">
+        <mat-form-field>
+          <mat-label>Address Line 1</mat-label>
+          <input matInput formControlName="address_line_1" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Address Line 2</mat-label>
+          <input matInput formControlName="address_line_2" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Country</mat-label>
+          <input matInput formControlName="country" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <input matInput formControlName="state" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Pincode</mat-label>
+          <input matInput formControlName="pincode" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="address_type">
+            <mat-option value="Shipping">Shipping</mat-option>
+            <mat-option value="Billing">Billing</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-icon-button color="warn" type="button" (click)="removeAddress(i)" *ngIf="mode !== 'view'">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <button mat-stroked-button color="primary" type="button" (click)="addAddress()" *ngIf="mode !== 'view'">
+        + Add Address
+      </button>
+    </div>
+
+    <h3 class="section-title">Bank Accounts</h3>
+    <div formArrayName="bank_id">
+      <div *ngFor="let bank of bankArray.controls; let i = index" [formGroupName]="i" class="form-grid">
+        <mat-form-field>
+          <mat-label>IFSC</mat-label>
+          <input matInput formControlName="bank_ifsc_code" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Bank Name</mat-label>
+          <input matInput formControlName="bank_name" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Branch</mat-label>
+          <input matInput formControlName="branch_name" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Account No</mat-label>
+          <input matInput formControlName="account_no" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Holder Name</mat-label>
+          <input matInput formControlName="account_holder_name" />
+        </mat-form-field>
+        <button mat-icon-button color="warn" type="button" (click)="removeBank(i)" *ngIf="mode !== 'view'">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <button mat-stroked-button color="primary" type="button" (click)="addBank()" *ngIf="mode !== 'view'">
+        + Add Bank Account
+      </button>
+    </div>
+
+    <div *ngIf="mode !== 'view'" class="actions">
+      <button mat-raised-button color="primary" type="submit">
+        {{ mode === 'new' ? 'Save' : 'Update' }}
+      </button>
+    </div>
+  </form>
+</mat-card>

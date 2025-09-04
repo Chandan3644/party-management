@@ -1,0 +1,95 @@
+<div class="party-list-container">
+
+  <mat-toolbar color="primary">
+    <span>Party Management</span>
+    <span class="spacer"></span>
+    <mat-form-field appearance="outline" class="search-box">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search party..." />
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="onAdd()">
+      <mat-icon>add</mat-icon>
+      Add Party
+    </button>
+  </mat-toolbar>
+
+  <mat-card class="desktop-view mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="full-width-table">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let party">{{party.id}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let party">{{party.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="company_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Company</th>
+        <td mat-cell *matCellDef="let party">{{party.company_name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mobile_no">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</th>
+        <td mat-cell *matCellDef="let party">{{party.mobile_no}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let party">{{party.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="gstin">
+        <th mat-header-cell *matHeaderCellDef>GSTIN</th>
+        <td mat-cell *matCellDef="let party">{{party.gstin}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let party">
+          <button mat-icon-button color="primary" (click)="onView(party)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="onEdit(party)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDelete(party)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </mat-card>
+
+  <div class="mobile-view">
+    <mat-card *ngFor="let party of dataSource.data" class="party-card mat-elevation-z4">
+      <mat-card-title>{{party.name}}</mat-card-title>
+      <mat-card-subtitle>{{party.company_name}}</mat-card-subtitle>
+      <mat-card-content>
+        <p><strong>Mobile:</strong> {{party.mobile_no}}</p>
+        <p><strong>Email:</strong> {{party.email}}</p>
+        <p><strong>GSTIN:</strong> {{party.gstin}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button color="primary" (click)="onView(party)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="onEdit(party)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onDelete(party)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>
